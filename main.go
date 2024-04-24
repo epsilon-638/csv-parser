@@ -20,7 +20,7 @@ func (c *ParsedCSV) GetColumn(column string) ([]string, error) {
 
 	for i, c := range c.Columns {
 		if c == column {
-			columnIdx = i-1
+			columnIdx = i - 1
 		}
 	}
 
@@ -28,12 +28,12 @@ func (c *ParsedCSV) GetColumn(column string) ([]string, error) {
 		return []string{}, errors.New(fmt.Sprintf("Column '%s' not found.", column))
 	}
 
-  items := []string{}
-  for _, r := range c.Rows {
-    items = append(items, r[columnIdx])
-  }
+	items := []string{}
+	for _, r := range c.Rows {
+		items = append(items, r[columnIdx])
+	}
 
-  return items, nil
+	return items, nil
 }
 
 func parseFilePath() (string, error) {
@@ -121,11 +121,11 @@ func main() {
 
 	log.Println("COLUMNS", parsedCSV.Columns)
 	log.Println("ROWS", parsedCSV.Rows)
-  names, err := parsedCSV.GetColumn("age")
-  if err != nil {
+	names, err := parsedCSV.GetColumn("age")
+	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
-  }
+	}
 
 	log.Println("NAMES", names)
 }
