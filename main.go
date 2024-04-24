@@ -36,26 +36,6 @@ func (c *ParsedCSV) GetColumn(column string) ([]string, error) {
 	return items, nil
 }
 
-func parseFilePath() (string, error) {
-	var filePath string
-	flag.StringVar(&filePath, "fp", "", "filepath to CSV")
-	flag.Parse()
-
-	if len(filePath) == 0 {
-		return "", errors.New("Filepath must be specified. Use -fp to specify a file path.")
-	}
-
-	splitFilePath := strings.Split(filePath, ".")
-	fileExt := splitFilePath[len(splitFilePath)-1]
-
-	if fileExt != "csv" {
-		fmt.Println("Filepath must point to the location of a CSV file.")
-		os.Exit(1)
-	}
-
-	return filePath, nil
-}
-
 func parseCSV(fp *os.File) (*ParsedCSV, error) {
 	lines := [][]string{}
 	items := []string{}
@@ -97,6 +77,26 @@ func parseCSV(fp *os.File) (*ParsedCSV, error) {
 		Columns: columns,
 		Rows:    rows,
 	}, nil
+}
+
+func parseFilePath() (string, error) {
+	var filePath string
+	flag.StringVar(&filePath, "fp", "", "filepath to CSV")
+	flag.Parse()
+
+	if len(filePath) == 0 {
+		return "", errors.New("Filepath must be specified. Use -fp to specify a file path.")
+	}
+
+	splitFilePath := strings.Split(filePath, ".")
+	fileExt := splitFilePath[len(splitFilePath)-1]
+
+	if fileExt != "csv" {
+		fmt.Println("Filepath must point to the location of a CSV file.")
+		os.Exit(1)
+	}
+
+	return filePath, nil
 }
 
 func main() {
