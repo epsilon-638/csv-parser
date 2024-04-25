@@ -56,6 +56,8 @@ func ParseCSV(fp *os.File) (*ParsedCSV, error) {
 	chars := []byte{}
 	p := make([]byte, 8)
 
+  inString := false
+
 	for {
 		n, err := fp.Read(p)
 		if err == io.EOF {
@@ -64,9 +66,15 @@ func ParseCSV(fp *os.File) (*ParsedCSV, error) {
 
 		for _, c := range p[:n] {
 			switch c {
+      case '"':
+        inString = !inString
 			case ',':
-				items = append(items, string(chars))
-				chars = nil
+        if !inString {
+          items = append(items, string(chars))
+          chars = nil
+        } else {
+          chars = append(chars, c)
+        }
 			case '\n':
 				items = append(items, string(chars))
 				chars = nil
@@ -79,10 +87,9 @@ func ParseCSV(fp *os.File) (*ParsedCSV, error) {
 	}
 
 	rows := lines[1:]
-
 	for i, r := range rows {
 		if len(r) != len(lines[0]) {
-			return &ParsedCSV{}, errors.New(fmt.Sprintf("Invalid row size %d expected %d rows on line %d", len(r), len(lines[0]), i+1))
+			return &ParsedCSV{}, errors.New(fmt.Sprintf("Invalid column size %d expected %d columns on line %d", len(r), len(lines[0]), i))
 		}
 	}
 
