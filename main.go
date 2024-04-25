@@ -60,10 +60,10 @@ func main() {
 
 	log.Println("NAMES", names)
 
-  addresses, err := parsedCSV.GetColumn("address")
+	addresses, err := parsedCSV.GetColumn("address")
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-  log.Println("ADDRESSES", addresses)
+	log.Println("ADDRESSES", addresses)
 }

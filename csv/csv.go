@@ -56,7 +56,7 @@ func ParseCSV(fp *os.File) (*ParsedCSV, error) {
 	chars := []byte{}
 	p := make([]byte, 8)
 
-  inString := false
+	inString := false
 
 	for {
 		n, err := fp.Read(p)
@@ -66,15 +66,15 @@ func ParseCSV(fp *os.File) (*ParsedCSV, error) {
 
 		for _, c := range p[:n] {
 			switch c {
-      case '"':
-        inString = !inString
+			case '"':
+				inString = !inString
 			case ',':
-        if !inString {
-          items = append(items, string(chars))
-          chars = nil
-        } else {
-          chars = append(chars, c)
-        }
+				if !inString {
+					items = append(items, string(chars))
+					chars = nil
+				} else {
+					chars = append(chars, c)
+				}
 			case '\n':
 				items = append(items, string(chars))
 				chars = nil
