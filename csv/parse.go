@@ -1,10 +1,10 @@
 package csv
 
 import (
-  "strconv"
-  "strings"
-  "reflect"
-  "fmt"
+	"fmt"
+	"reflect"
+	"strconv"
+	"strings"
 )
 
 var typeRank = map[string]int{

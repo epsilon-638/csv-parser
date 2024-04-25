@@ -4,10 +4,10 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"github.com/epsilon-638/csv-parser/csv"
 	"log"
 	"os"
 	"strings"
-  "github.com/epsilon-638/csv-parser/csv"
 )
 
 func parseFilePath() (string, error) {

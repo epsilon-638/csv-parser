@@ -1,11 +1,11 @@
 package csv
 
 import (
-  "io"
-  "os"
-  "reflect"
-  "fmt"
-  "errors"
+	"errors"
+	"fmt"
+	"io"
+	"os"
+	"reflect"
 )
 
 type Column struct {
